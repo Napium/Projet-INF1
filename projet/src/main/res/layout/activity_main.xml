@@ -1,0 +1,40 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    tools:context="com.example.projet.MainActivity"
+    tools:ignore="MergeRootFrame"
+    android:background="#0098ff">
+
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:text="@string/nomAppli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center|center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:paddingBottom="40dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listEnfant"
+        android:dividerHeight="20dp"
+        android:background="#0de011"
+        android:divider="#0098ff" />
+
+    </LinearLayout>
+
+</FrameLayout>
