@@ -1,6 +1,7 @@
 package com.example.projet;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -25,10 +26,12 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
 
     private ListView liste;
+    String nom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         setContentView(R.layout.activity_main);
 
         liste = (ListView) findViewById(R.id.listEnfant);
@@ -43,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exemple);
 
-// Données
+        // Données
         // Liste d'item
         List<HashMap<String, String>> listDonnees = new ArrayList<HashMap<String, String>>();
         // un item
@@ -86,12 +89,10 @@ public class MainActivity extends ActionBarActivity {
 
                 //on récupère la HashMap contenant les infos de notre item
                 HashMap<String, String> map = (HashMap<String, String>) liste.getItemAtPosition(position);
-                //on créer une boite de dialogue
-                AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-                adb.setTitle("Sélection Item");
-                adb.setMessage("Votre choix : " + map.get("prenom"));
-                adb.setPositiveButton("Ok", null);
-                adb.show();
+
+                Intent selectEnfant = new Intent(MainActivity.this, MenuActivity.class);
+                selectEnfant.putExtra("prenom",map.get("prenom"));
+                startActivityForResult(selectEnfant, 1);
             }
         });
 

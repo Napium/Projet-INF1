@@ -3,6 +3,9 @@
 
     <string name="app_name">L\'ecole des loustics</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string><string name="nomAppli">L\'école des loustics</string>
+    <string name="action_settings">Settings</string>
+    <string name="nomAppli">L\'école des loustics</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_math_menu">MathMenu</string>
 
 </resources>

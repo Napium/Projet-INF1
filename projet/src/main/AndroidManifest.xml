@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.projet.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name="com.example.projet.MathMenu"
+            android:label="@string/title_activity_math_menu" >
+        </activity>
     </application>
 
 </manifest>
