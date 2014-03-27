@@ -1,29 +1,22 @@
 package com.example.projet;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+public class MenuEnfant extends ActionBarActivity {
 
     private ListView liste;
     String nom;
@@ -32,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu_enfant);
 
         liste = (ListView) findViewById(R.id.listEnfant);
 
@@ -79,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
         listDonnees.add(map);
 
 
-        ListAdapter adapter = new SimpleAdapter(this, listDonnees, R.layout.item_listview, new String[] {"prenom", "age", "img"},
+        ListAdapter adapter = new SimpleAdapter(this, listDonnees, R.layout.item_listenfants, new String[] {"prenom", "age", "img"},
                 new int[] {R.id.item_prenom, R.id.item_age, R.id.item_image });
         liste.setAdapter(adapter);
 
@@ -90,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
                 //on récupère la HashMap contenant les infos de notre item
                 HashMap<String, String> map = (HashMap<String, String>) liste.getItemAtPosition(position);
 
-                Intent selectEnfant = new Intent(MainActivity.this, MenuActivity.class);
+                Intent selectEnfant = new Intent(MenuEnfant.this, MenuActivity.class);
                 selectEnfant.putExtra("prenom",map.get("prenom"));
                 startActivityForResult(selectEnfant, 1);
             }

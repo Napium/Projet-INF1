@@ -7,7 +7,7 @@
     android:paddingRight="15dp"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
-    tools:context="com.example.projet.MainActivity"
+    tools:context="com.example.projet.MenuEnfant"
     tools:ignore="MergeRootFrame"
     android:background="#0098ff">
 
@@ -16,7 +16,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <TextView
+        <TextView
         android:text="@string/nomAppli"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,16 @@
         android:textColor="#ffffff"
         android:paddingBottom="40dp" />
 
-    <ListView
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addLoustic"
+            android:text="Nouveau Loustic !"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-20dp" />
+
+        <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listEnfant"
