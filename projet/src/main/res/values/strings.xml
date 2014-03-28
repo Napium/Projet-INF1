@@ -7,5 +7,6 @@
     <string name="nomAppli">L\'école des loustics</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_math_menu">MathMenu</string>
+    <string name="title_activity_creation_enfant">CreationEnfant</string>
 
 </resources>

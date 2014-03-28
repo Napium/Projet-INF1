@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MenuEnfant"
+            android:name="com.example.projet.MenuEnfant"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,14 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-feature android:name="android.hardware.camera"
+            android:required="false" />
+
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="18"/>
+
         <activity
             android:name="com.example.projet.MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name=".MenuMathEx"
+            android:name="com.example.projet.MenuMathEx"
             android:label="@string/title_activity_math_menu" >
         </activity>
+        <activity
+            android:name="com.example.projet.CreationEnfant"
+            android:label="@string/title_activity_creation_enfant" >
+        </activity>
+
     </application>
 
 </manifest>
