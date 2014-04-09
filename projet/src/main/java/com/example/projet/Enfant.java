@@ -7,12 +7,14 @@ public class Enfant {
     private int id;
     private String prenom;
     private int age;
+    private String image;
 
     public Enfant(){}
 
-    public Enfant(String prenom, int age){
+    public Enfant(String prenom, int age, String image){
         this.prenom = prenom;
         this.age = age;
+        this.image = image;
     }
 
     public int getId() {
@@ -21,6 +23,14 @@ public class Enfant {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getPrenom() {

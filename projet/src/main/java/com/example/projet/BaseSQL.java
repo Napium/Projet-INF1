@@ -14,10 +14,11 @@ public class BaseSQL extends SQLiteOpenHelper {
     private static final String COL_ID = "ID";
     private static final String COL_PRENOM = "Prenom";
     private static final String COL_AGE = "Age";
+    private static final String COL_IMG = "Image";
 
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_ENFANTS + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_PRENOM + " TEXT NOT NULL, "
-            + COL_AGE + " TEXT NOT NULL);";
+            + COL_AGE + " TEXT NOT NULL, " + COL_IMG + " TEXT NOT NULL);";
 
     public BaseSQL(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);

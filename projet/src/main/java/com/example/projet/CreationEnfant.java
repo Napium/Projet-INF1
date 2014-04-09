@@ -2,6 +2,8 @@ package com.example.projet;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,18 +23,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreationEnfant extends ActionBarActivity {
 
+    static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Button btnEnregistrer;
     private EditText etName;
     private EditText etAge;
     private ImageButton imageButton;
-    private ImageView enfantPhoto;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private ImageView mImageView;
+    private File image;
 
     EnfantsBDD enfantsBdd = new EnfantsBDD(this);
 
@@ -41,14 +46,17 @@ public class CreationEnfant extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_enfant);
 
+        mImageView = (ImageView) findViewById(R.id.enfantPhoto);
         etName = (EditText) findViewById(R.id.name);
         etAge = (EditText) findViewById(R.id.age);
+        mImageView = (ImageView) findViewById(R.id.enfantPhoto);
 
         btnEnregistrer = (Button) findViewById(R.id.enregistrer);
         btnEnregistrer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(etName.getText().toString() != null && etAge.getText().toString() != null){
-                    Enfant enfant = new Enfant(etName.getText().toString(), Integer.parseInt(etAge.getText().toString()) );
+
+                    Enfant enfant = new Enfant(etName.getText().toString(), Integer.parseInt(etAge.getText().toString()), image.getAbsolutePath() );
                     enfantsBdd.open();
                     enfantsBdd.insertEnfant(enfant);
                     enfantsBdd.close();
@@ -61,23 +69,10 @@ public class CreationEnfant extends ActionBarActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
+                dispatchTakePictureIntent();
             }
         });
 
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            enfantPhoto = (ImageView) findViewById(R.id.enfantPhoto);
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            enfantPhoto.setImageBitmap(imageBitmap);
-        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -89,14 +84,21 @@ public class CreationEnfant extends ActionBarActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-
+                // Error occurred while creating the File
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            setPic();
         }
     }
 
@@ -108,7 +110,8 @@ public class CreationEnfant extends ActionBarActivity {
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
+
+        image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
@@ -119,6 +122,34 @@ public class CreationEnfant extends ActionBarActivity {
         return image;
     }
 
+    private void setPic() {
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+        // Determine how much to scale down the image
+        int scaleFactor = 10;
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getPath(), bmOptions);
+
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(image);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        this.mImageView.setImageBitmap(bitmap);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

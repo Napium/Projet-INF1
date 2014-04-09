@@ -24,6 +24,8 @@ public class EnfantsBDD {
     private static final int NUM_COL_PRENOM = 1;
     private static final String COL_AGE = "Age";
     private static final int NUM_COL_AGE = 2;
+    private static final String COL_IMG = "Image";
+    private static final int NUM_COL_IMG = 3;
 
     private SQLiteDatabase bdd;
 
@@ -49,6 +51,7 @@ public class EnfantsBDD {
         ContentValues values = new ContentValues();
         values.put(COL_PRENOM, enfant.getPrenom());
         values.put(COL_AGE, enfant.getAge());
+        values.put(COL_IMG, enfant.getImage());
         return bdd.insert(TABLE_ENFANTS, null, values);
     }
 
@@ -56,6 +59,7 @@ public class EnfantsBDD {
         ContentValues values = new ContentValues();
         values.put(COL_PRENOM, enfant.getPrenom());
         values.put(COL_AGE, enfant.getAge());
+        values.put(COL_IMG, enfant.getImage());
         return bdd.update(TABLE_ENFANTS, values, COL_ID + " = " +id, null);
     }
 
@@ -80,6 +84,7 @@ public class EnfantsBDD {
         enfant.setId(c.getInt(NUM_COL_ID));
         enfant.setPrenom(c.getString(NUM_COL_PRENOM));
         enfant.setAge(c.getInt(NUM_COL_AGE));
+        enfant.setImage(c.getString(NUM_COL_IMG));
         //On ferme le cursor
         c.close();
 
@@ -89,7 +94,7 @@ public class EnfantsBDD {
 
     public List selectAll(){
 
-        Cursor c = bdd.query(TABLE_ENFANTS, new String[] {COL_ID, COL_PRENOM, COL_AGE}, null, null, null, null, null);
+        Cursor c = bdd.query(TABLE_ENFANTS, new String[] {COL_ID, COL_PRENOM, COL_AGE, COL_IMG}, null, null, null, null, null);
 
         List<HashMap<String, String>> listDonnees = new ArrayList<HashMap<String, String>>();
 
@@ -105,14 +110,14 @@ public class EnfantsBDD {
             map = new HashMap<String, String>();
             map.put("prenom", c.getString(NUM_COL_PRENOM));
             map.put("age", c.getInt(NUM_COL_AGE) + " ans");
-            map.put("img", String.valueOf(R.drawable.enfant1));
+            map.put("img", c.getString(NUM_COL_IMG));
             listDonnees.add(map);
 
             while(c.moveToNext()){
                 map = new HashMap<String, String>();
                 map.put("prenom", c.getString(NUM_COL_PRENOM));
                 map.put("age", c.getInt(NUM_COL_AGE) + " ans");
-                map.put("img", String.valueOf(R.drawable.enfant1));
+                map.put("img", c.getString(NUM_COL_IMG));
                 listDonnees.add(map);
             }
         }
