@@ -21,10 +21,7 @@ import java.util.List;
 public class MenuEnfant extends ActionBarActivity {
 
     private ListView liste;
-    String nom;
     private Button btnAddLoustic;
-
-    EnfantsBDD enfantsBdd = new EnfantsBDD(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +36,6 @@ public class MenuEnfant extends ActionBarActivity {
                 startActivityForResult(newEnfant, 1);
             }
         });
-
-
     }
 
     @Override
@@ -61,7 +56,6 @@ public class MenuEnfant extends ActionBarActivity {
         ListAdapter adapter = new SimpleAdapter(this, listDonnees, R.layout.item_listenfants, new String[] {"prenom", "age", "img"},
                 new int[] {R.id.item_prenom, R.id.item_age, R.id.item_image });
         liste.setAdapter(adapter);
-
 
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

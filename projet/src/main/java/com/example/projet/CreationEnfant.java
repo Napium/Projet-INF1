@@ -38,6 +38,7 @@ public class CreationEnfant extends ActionBarActivity {
     private ImageButton imageButton;
     private ImageView mImageView;
     private File image;
+    private int photoOrNotPhoto;
 
     EnfantsBDD enfantsBdd = new EnfantsBDD(this);
 
@@ -46,21 +47,27 @@ public class CreationEnfant extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation_enfant);
 
+        photoOrNotPhoto = 0;
         mImageView = (ImageView) findViewById(R.id.enfantPhoto);
         etName = (EditText) findViewById(R.id.name);
         etAge = (EditText) findViewById(R.id.age);
-        mImageView = (ImageView) findViewById(R.id.enfantPhoto);
 
         btnEnregistrer = (Button) findViewById(R.id.enregistrer);
         btnEnregistrer.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(etName.getText().toString() != null && etAge.getText().toString() != null){
 
-                    Enfant enfant = new Enfant(etName.getText().toString(), Integer.parseInt(etAge.getText().toString()), image.getAbsolutePath() );
+                    Enfant enfant;
+                    if(photoOrNotPhoto == 1) {
+                        enfant = new Enfant(etName.getText().toString(), Integer.parseInt(etAge.getText().toString()), image.getAbsolutePath());
+                    }
+                    else {
+                        enfant = new Enfant(etName.getText().toString(), Integer.parseInt(etAge.getText().toString()), "null");
+                    }
                     enfantsBdd.open();
                     enfantsBdd.insertEnfant(enfant);
                     enfantsBdd.close();
-                   finish();
+                    finish();
                 }
             }
         });
@@ -99,6 +106,7 @@ public class CreationEnfant extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             setPic();
+            this.photoOrNotPhoto = 1;
         }
     }
 
@@ -123,14 +131,19 @@ public class CreationEnfant extends ActionBarActivity {
     }
 
     private void setPic() {
+        int targetW = mImageView.getWidth();
+        int targetH = mImageView.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
 
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
         // Determine how much to scale down the image
-        int scaleFactor = 10;
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;

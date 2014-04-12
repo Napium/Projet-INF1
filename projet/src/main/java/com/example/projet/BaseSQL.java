@@ -18,7 +18,7 @@ public class BaseSQL extends SQLiteOpenHelper {
 
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_ENFANTS + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_PRENOM + " TEXT NOT NULL, "
-            + COL_AGE + " TEXT NOT NULL, " + COL_IMG + " TEXT NOT NULL);";
+            + COL_AGE + " TEXT NOT NULL, " + COL_IMG + " TEXT);";
 
     public BaseSQL(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);

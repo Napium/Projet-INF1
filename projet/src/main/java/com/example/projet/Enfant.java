@@ -14,7 +14,9 @@ public class Enfant {
     public Enfant(String prenom, int age, String image){
         this.prenom = prenom;
         this.age = age;
-        this.image = image;
+        if( image != "null") {
+            this.image = image;
+        }
     }
 
     public int getId() {

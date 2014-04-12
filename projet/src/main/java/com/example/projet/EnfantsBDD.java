@@ -51,7 +51,9 @@ public class EnfantsBDD {
         ContentValues values = new ContentValues();
         values.put(COL_PRENOM, enfant.getPrenom());
         values.put(COL_AGE, enfant.getAge());
-        values.put(COL_IMG, enfant.getImage());
+        if(enfant.getImage() != null){
+            values.put(COL_IMG, enfant.getImage());
+        }
         return bdd.insert(TABLE_ENFANTS, null, values);
     }
 
@@ -75,20 +77,14 @@ public class EnfantsBDD {
     private Enfant cursorToEnfant(Cursor c){
         if (c.getCount() == 0)
             return null;
-
-        //Sinon on se place sur le premier élément
         c.moveToFirst();
-        //On créé un livre
         Enfant enfant = new Enfant();
-        //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
         enfant.setId(c.getInt(NUM_COL_ID));
         enfant.setPrenom(c.getString(NUM_COL_PRENOM));
         enfant.setAge(c.getInt(NUM_COL_AGE));
         enfant.setImage(c.getString(NUM_COL_IMG));
-        //On ferme le cursor
         c.close();
 
-        //On retourne le livre
         return enfant;
     }
 

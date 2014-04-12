@@ -1,16 +1,31 @@
 package com.example.projet;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class MenuMathEx extends ActionBarActivity {
+
+    private LinearLayout ex1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_math);
+
+        ex1 = (LinearLayout) findViewById(R.id.MathEx1);
+        ex1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mathEx1 = new Intent(MenuMathEx.this, MathEx1Activity.class);
+                startActivityForResult(mathEx1, 1);
+            }
+        });
 
     }
 
