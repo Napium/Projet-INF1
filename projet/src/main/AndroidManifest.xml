@@ -38,10 +38,6 @@
             android:name="com.example.projet.MathEx1Activity"
             android:label="@string/title_activity_math_ex1" >
         </activity>
-        <activity
-            android:name="com.example.projet.MathEx1Activity"
-            android:label="@string/title_activity_math_ex1" >
-        </activity>
     </application>
 
 </manifest>
