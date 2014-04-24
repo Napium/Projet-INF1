@@ -9,5 +9,6 @@
     <string name="title_activity_math_menu">MathMenu</string>
     <string name="title_activity_creation_enfant">CreationEnfant</string>
     <string name="title_activity_math_ex1">MathEx1Activity</string>
+    <string name="title_activity_math_ex2">MathEx2</string>
 
 </resources>

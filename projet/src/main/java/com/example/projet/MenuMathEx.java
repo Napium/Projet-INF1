@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 public class MenuMathEx extends ActionBarActivity {
 
     private LinearLayout ex1;
+    private LinearLayout ex2;
 
 
     @Override
@@ -24,6 +25,14 @@ public class MenuMathEx extends ActionBarActivity {
             public void onClick(View v) {
                 Intent mathEx1 = new Intent(MenuMathEx.this, MathEx1Activity.class);
                 startActivityForResult(mathEx1, 1);
+            }
+        });
+
+        ex2 = (LinearLayout) findViewById(R.id.MathEx2);
+        ex2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mathEx2 = new Intent(MenuMathEx.this, MathEx2Activity.class);
+                startActivityForResult(mathEx2, 1);
             }
         });
 

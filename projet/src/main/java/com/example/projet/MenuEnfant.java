@@ -53,20 +53,24 @@ public class MenuEnfant extends ActionBarActivity {
         listDonnees = enfantsBdd.selectAll();
         enfantsBdd.close();
 
-        ListAdapter adapter = new SimpleAdapter(this, listDonnees, R.layout.item_listenfants, new String[] {"prenom", "age", "img"},
-                new int[] {R.id.item_prenom, R.id.item_age, R.id.item_image });
-        liste.setAdapter(adapter);
+        System.out.println(listDonnees.isEmpty());
 
-        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if(listDonnees.isEmpty()) {
+            ListAdapter adapter = new SimpleAdapter(this, listDonnees, R.layout.item_listenfants, new String[]{"prenom", "age", "img"},
+                    new int[]{R.id.item_prenom, R.id.item_age, R.id.item_image});
+            liste.setAdapter(adapter);
 
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                HashMap<String, String> map = (HashMap<String, String>) liste.getItemAtPosition(position);
+            liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                Intent selectEnfant = new Intent(MenuEnfant.this, MenuActivity.class);
-                selectEnfant.putExtra("prenom",map.get("prenom"));
-                startActivityForResult(selectEnfant, 1);
-            }
-        });
+                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                    HashMap<String, String> map = (HashMap<String, String>) liste.getItemAtPosition(position);
+
+                    Intent selectEnfant = new Intent(MenuEnfant.this, MenuActivity.class);
+                    selectEnfant.putExtra("prenom", map.get("prenom"));
+                    startActivityForResult(selectEnfant, 1);
+                }
+            });
+        }
     }
 
     @Override
